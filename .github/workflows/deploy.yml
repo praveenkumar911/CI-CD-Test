@@ -1,0 +1,36 @@
+name: Deploy to Ubuntu Server
+
+on:
+  push:
+    branches:
+      - main  # This triggers the deployment on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
+
+    - name: Deploy to Server
+      env:
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      run: |
+        ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST << 'EOF'
+          # Navigate to the app directory on your server
+          cd /path/to/your/app  # Change this path to your app's directory
+          
+          # Pull the latest changes
+          git pull origin main
+          
+          # Run any build or deployment commands (adjust as needed)
+          npm install  # For Node.js apps
+          pm2 restart all  # Restart application with PM2
+        EOF
