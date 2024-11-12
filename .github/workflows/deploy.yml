@@ -25,7 +25,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST << 'EOF'
           # Navigate to the app directory on your server
-          cd //RCTS/CI-CD-Test  # Change this path to your app's directory
+          cd /RCTS/CI-CD-Test  # Change this path to your app's directory
           
           # Pull the latest changes
           git pull origin main
