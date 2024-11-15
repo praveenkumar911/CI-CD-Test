@@ -23,8 +23,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
         SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
       run: |
-      #  
-        # ssh -o StrictHostKeyChecking=no  $SSH_USERNAME@$SSH_HOST << 'EOF'
+        ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST << 'EOF'
           # Navigate to the app directory on your server
           cd /RCTS/CI-CD-Test  # Change this path to your app's directory
           
